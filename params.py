@@ -10,17 +10,17 @@
 from brian2.units import *
 
 DT = 0.01 * ms
-METHOD = 'rk4'
-STDP = 'add'
-
 MODE = 'Ih'
+STDP = 'add'
+REC1_N = 50
+REC2_N = 50
 
-profile_root = './test1/'
+profile_name = 'test2'
 
 a = 2.0 * uA
 gmax_rec = 0.010 * msiemens
 
-period = 15
+period = 5
 jitter = -2 * ms
 FLUC = 100000 * (uA**2 / ms)
 freq = 50 * Hz

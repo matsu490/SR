@@ -7,15 +7,14 @@
 #
 # Copyright (C) 2017 Taishi Matsumura
 #
+from os import getcwdu as os_getcwdu
+from os.path import join as os_path_join
 from module import *
 from params import *
 from brian2 import *
 defaultclock.dt = DT
 prefs.codegen.target = 'cython'
 close('all')
-
-REC1_N = 50
-REC2_N = 50
 
 
 class Main(object):
@@ -24,7 +23,6 @@ class Main(object):
 
     def run(self):
         tmax = period * 1.0 / freq
-        data_dir_path = '{0}Data/gmax_rec={1}mS/FLUC={2}/jitter={3}ms/a={4}uA/freq={5}Hz/'.format(profile_root, gmax_rec, FLUC, jitter, a, freq)
         rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
         rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
         if STDP == 'add':
@@ -68,8 +66,8 @@ class Main(object):
             'ws12': syna12.w,
             'ws21': syna21.w,
             'ws22': syna22.w,
-            'synamat11': getSynamat(REC1_N, syna11.w),
-            'synamat22': getSynamat(REC2_N, syna22.w),
+            'synamat11': get_synamat(REC1_N, syna11.w),
+            'synamat22': get_synamat(REC2_N, syna22.w),
             'syna_rec11': synamon_rec11.w,
             'syna_rec12': synamon_rec12.w,
             'syna_rec21': synamon_rec21.w,
@@ -78,7 +76,13 @@ class Main(object):
             'raster_rec2_t': spkmon_rec2.t[:],
             'raster_rec1_i': spkmon_rec1.i[:],
             'raster_rec2_i': spkmon_rec2.i[:]}
-        saveData(variables, data_dir_path, mode='npy')
+        dirs = [
+            os_getcwdu(), 'ResultData', profile_name,
+            'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
+            'jitter={}'.format(gmax_rec), 'a={}'.format(a),
+            'freq={}'.format(freq)]
+        data_dir_path = os_path_join(*dirs)
+        save_data(variables, data_dir_path, mode='npy')
 
 if __name__ == '__main__':
     main = Main()
