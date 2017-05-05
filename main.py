@@ -9,7 +9,6 @@
 #
 from shutil import copy as shutil_copy
 from os import getcwdu as os_getcwdu
-from os import makedirs as os_makedirs
 from os.path import join as os_path_join
 import multiprocessing as mp
 import argparse
@@ -143,7 +142,7 @@ def simulation_loop(trial, jitter, FLUC, freq):
         'jitter={}'.format(jitter), 'a={}'.format(a),
         'freq={}'.format(freq)]
     data_dir_path = os_path_join(*dirs)
-    os_makedirs(data_dir_path)
+    makedirs(data_dir_path)
     save_data(variables, data_dir_path, mode='npy')
     pickle(params, data_dir_path, 'params.pkl')
     shutil_copy('./params.py', data_dir_path)

@@ -7,11 +7,20 @@
 #
 # Copyright (C) 2017 Taishi Matsumura
 #
+from os import makedirs as os_makedirs
 from os.path import join as os_path_join
+from os.path import exists as os_path_exists
 from brian2 import SpikeGeneratorGroup, NeuronGroup, Synapses
 from brian2.units import *
 import numpy as np
 import pickle as pkl
+
+
+def makedirs(dir_path):
+    if os_path_exists(dir_path):
+        pass
+    else:
+        os_makedirs(dir_path)
 
 
 def pickle(obj, directory, file_name):
