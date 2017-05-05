@@ -32,7 +32,10 @@ class SynapseMatrix(FigureModel):
             'jitter={}'.format(jitter), 'a={}'.format(a),
             'freq={}'.format(freq)]
         data_dir_path = os_path_join(*dirs)
-        self.synamat = np.load(os_path_join(data_dir_path, 'synamat11.npy'))
+        self.synamat11 = np.load(os_path_join(data_dir_path, 'synamat11.npy'))
+        self.synamat12 = np.load(os_path_join(data_dir_path, 'synamat12.npy'))
+        self.synamat21 = np.load(os_path_join(data_dir_path, 'synamat21.npy'))
+        self.synamat22 = np.load(os_path_join(data_dir_path, 'synamat22.npy'))
         self.group_ns = group_ns
         self.group = len(group_ns)
     
@@ -48,7 +51,7 @@ class SynapseMatrix(FigureModel):
     def get_separated_matrix(self):
         # elements in s_synamat is row order
         s_synamat = []
-        tmp = np.hsplit(self.synamat, [20])
+        tmp = np.hsplit(self.synamat11, [20])
         s_synamat.append(np.vsplit(tmp[0], [20])[0])
         s_synamat.append(np.vsplit(tmp[0], [20])[1])
         s_synamat.append(np.vsplit(tmp[1], [20])[0])
@@ -67,14 +70,22 @@ class SynapseMatrix(FigureModel):
         return m
 
     def plot_synamat(self):
-        self.ax = self.fig.add_subplot(111)
-        im = self.ax.imshow(self.synamat, interpolation='none', vmin=0, vmax=1)
+        self.ax11 = self.fig.add_subplot(221)
+        self.ax12 = self.fig.add_subplot(222)
+        self.ax21 = self.fig.add_subplot(223)
+        self.ax22 = self.fig.add_subplot(224)
+        im = self.ax11.imshow(self.synamat11, interpolation='none', vmin=0, vmax=1)
+        self.ax12.imshow(self.synamat12, interpolation='none', vmin=0, vmax=1)
+        self.ax21.imshow(self.synamat21, interpolation='none', vmin=0, vmax=1)
+        self.ax22.imshow(self.synamat22, interpolation='none', vmin=0, vmax=1)
+        '''
         divider = make_axes_locatable(self.ax)
         cax = divider.append_axes('right', size='5%', pad=0.1)
         cb = self.fig.colorbar(im, cax=cax)
         cb.set_label('Weight [a.u.]')
         self.ax.set_xlabel('Pre neuron')
         self.ax.set_ylabel('Post neuron')
+        '''
 
     def plot_sep_mean(self):
         self.ax = self.fig.add_subplot(111)
@@ -84,8 +95,8 @@ class SynapseMatrix(FigureModel):
         self.ax.set_ylabel('Weight [a.u.]')
 
 if __name__ == '__main__':
-    profile_name = 'teng'
-    period = 5
+    profile_name = 'synamat'
+    period = 100
     trial = 0
     gmax_rec = 0.010 * msiemens
     FLUC = 100000 * (uA ** 2 / ms)
