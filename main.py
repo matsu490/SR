@@ -7,6 +7,7 @@
 #
 # Copyright (C) 2017 Taishi Matsumura
 #
+import shutil
 from os import getcwdu as os_getcwdu
 from os.path import join as os_path_join
 from module import *
@@ -18,16 +19,17 @@ close('all')
 
 
 class Main(object):
-    def __init__(self):
+    def __init__(self, trials, jitters, FLUCs, freqs):
         pass
 
-    def run(self, jitters, FLUCs, freqs):
-        for jitter in jitters:
-            for FLUC in FLUCs:
-                for freq in freqs:
-                    self._loop(jitter, FLUC, freq)
+    def run(self):
+        for trial in trials:
+            for jitter in jitters:
+                for FLUC in FLUCs:
+                    for freq in freqs:
+                        self._loop(trial, jitter, FLUC, freq)
 
-    def _loop(self, jitter, FLUC, freq):
+    def _loop(self, trial, jitter, FLUC, freq):
         tmax = period * 1.0 / freq
         rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
         rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
@@ -82,14 +84,30 @@ class Main(object):
             'raster_rec2_t': spkmon_rec2.t[:],
             'raster_rec1_i': spkmon_rec1.i[:],
             'raster_rec2_i': spkmon_rec2.i[:]}
+        params = {
+            'DT': DT,
+            'MODE': MODE,
+            'STDP': STDP,
+            'REC1_N': REC1_N,
+            'REC2_N': REC2_N,
+            'a': a,
+            'gmax_rec': gmax_rec,
+            'period': period,
+            'trial': trial,
+            'jitter': jitter,
+            'FLUC': FLUC,
+            'freq': freq}
         dirs = [
             os_getcwdu(), 'ResultData', profile_name,
+            'trial{}'.format(trial),
             'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
-            'jitter={}'.format(gmax_rec), 'a={}'.format(a),
+            'jitter={}'.format(jitter), 'a={}'.format(a),
             'freq={}'.format(freq)]
         data_dir_path = os_path_join(*dirs)
         save_data(variables, data_dir_path, mode='npy')
+        pickle(params, data_dir_path, 'params.pkl')
+        shutil.copy('./params.py', data_dir_path)
 
 if __name__ == '__main__':
-    main = Main()
-    main.run(jitters, FLUCs, freqs)
+    main = Main(trials, jitters, FLUCs, freqs)
+    main.run()
