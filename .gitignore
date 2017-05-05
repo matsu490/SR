@@ -89,4 +89,7 @@ ENV/
 .ropeproject
 
 # User definitions
+*.png
+*.jpg
+*.eps
 /ResultData
