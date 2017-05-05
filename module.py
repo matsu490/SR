@@ -7,27 +7,28 @@
 #
 # Copyright (C) 2017 Taishi Matsumura
 #
+from os import makedirs as os_makedirs
+from os.path import join as os_path_join
 from brian2 import SpikeGeneratorGroup, NeuronGroup, Synapses
 from brian2.units import *
 import numpy as np
 
 
-def saveData(dic, save_data_dir, mode='npy'):
-    digDirectory(save_data_dir)
+def save_data(dic, save_data_dir, mode='npy'):
+    os_makedirs(save_data_dir)
     keys = []
     if mode in ('npy', 'numpy'):
         for key, val in dic.items():
-            fname = save_data_dir + key + '.npy'
-            np.save(fname, val)
+            file_path = os_path_join(save_data_dir, key + '.npy')
+            np.save(file_path, val)
             keys.append(key)
-        np.save(save_data_dir + 'data_list.npy', keys)
-
+        np.save(os_path_join(save_data_dir, 'data_list.npy'), keys)
     elif mode in ('txt', 'text', 'csv'):
         for key, val in dic.items():
-            fname = save_data_dir + key + '.csv'
-            np.savetxt(fname, val, fmt='%.6f', delimiter=',')
+            file_path = os_path_join(save_data_dir, key + '.csv')
+            np.savetxt(file_path, val, fmt='%.6f', delimiter=',')
             keys.append(key)
-        np.savetxt(save_data_dir + 'data_list.csv', keys, fmt='%s')
+        np.savetxt(os_path_join(save_data_dir, 'data_list.csv'), keys, fmt='%s')
 
 
 def digDirectory(path):
