@@ -70,14 +70,14 @@ class SynapseMatrix(FigureModel):
         return m
 
     def plot_synamat(self):
-        self.ax11 = self.fig.add_subplot(221)
-        self.ax12 = self.fig.add_subplot(222)
-        self.ax21 = self.fig.add_subplot(223)
-        self.ax22 = self.fig.add_subplot(224)
-        im = self.ax11.imshow(self.synamat11, interpolation='none', vmin=0, vmax=1)
-        self.ax12.imshow(self.synamat12, interpolation='none', vmin=0, vmax=1)
-        self.ax21.imshow(self.synamat21, interpolation='none', vmin=0, vmax=1)
-        self.ax22.imshow(self.synamat22, interpolation='none', vmin=0, vmax=1)
+        self.ax1 = self.fig.add_subplot(221)
+        self.ax2 = self.fig.add_subplot(222)
+        self.ax3 = self.fig.add_subplot(223)
+        self.ax4 = self.fig.add_subplot(224)
+        im = self.ax1.imshow(self.synamat11, interpolation='none', vmin=0, vmax=1)
+        self.ax2.imshow(self.synamat21, interpolation='none', vmin=0, vmax=1)
+        self.ax3.imshow(self.synamat12, interpolation='none', vmin=0, vmax=1)
+        self.ax4.imshow(self.synamat22, interpolation='none', vmin=0, vmax=1)
         '''
         divider = make_axes_locatable(self.ax)
         cax = divider.append_axes('right', size='5%', pad=0.1)
