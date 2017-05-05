@@ -16,9 +16,6 @@ defaultclock.dt = DT
 prefs.codegen.target = 'cython'
 close('all')
 
-REC1_N = 50
-REC2_N = 50
-
 
 class Main(object):
     def __init__(self):
