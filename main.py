@@ -104,6 +104,14 @@ def simulation_loop(trial, jitter, FLUC, freq):
 
     meanw_rec1 = (wtotmon_rec1.wtot.sum(0)) / (REC1_N**2 - REC1_N)
     meanw_rec2 = (wtotmon_rec2.wtot.sum(0)) / (REC2_N**2 - REC2_N)
+    synamat11 = np.zeros((REC1_N, REC1_N))
+    synamat12 = np.zeros((REC1_N, REC2_N))
+    synamat21 = np.zeros((REC2_N, REC1_N))
+    synamat22 = np.zeros((REC2_N, REC2_N))
+    synamat11[syna11.i[:], syna11.j[:]] = syna11.w[:]
+    synamat12[syna12.i[:], syna12.j[:]] = syna12.w[:]
+    synamat21[syna21.i[:], syna21.j[:]] = syna21.w[:]
+    synamat22[syna22.i[:], syna22.j[:]] = syna22.w[:]
 
     variables = {
         'meanw_rec1': meanw_rec1,
@@ -112,8 +120,10 @@ def simulation_loop(trial, jitter, FLUC, freq):
         'ws12': syna12.w,
         'ws21': syna21.w,
         'ws22': syna22.w,
-        'synamat11': get_synamat(REC1_N, syna11.w),
-        'synamat22': get_synamat(REC2_N, syna22.w),
+        'synamat11': synamat11,
+        'synamat12': synamat12,
+        'synamat21': synamat21,
+        'synamat22': synamat22,
         'syna_rec11': synamon_rec11.w,
         'syna_rec12': synamon_rec12.w,
         'syna_rec21': synamon_rec21.w,
