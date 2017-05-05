@@ -12,16 +12,17 @@ from brian2.units import *
 DT = 0.01 * ms
 MODE = 'Ih'
 STDP = 'add'
-REC1_N = 50
+STIM_N = 20
+REC1_N = 20
 REC2_N = 50
 
-profile_name = 'tet'
+profile_name = 'synamat'
 
 a = 2.0 * uA
 gmax_rec = 0.010 * msiemens
-period = 5
+period = 100
 
-trials = range(3)
+trials = range(1)
 jitters = [-2] * ms
-FLUCs = range(0, 400000, 100000) * (uA**2 / ms)
-freqs = range(10, 50, 10) * Hz
+FLUCs = range(400000, 500000, 100000) * (uA**2 / ms)
+freqs = range(40, 50, 10) * Hz

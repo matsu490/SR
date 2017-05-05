@@ -86,7 +86,7 @@ def simulation_loop(trial, jitter, FLUC, freq):
         syna12 = LogSTDPRecurrentSynapse(rec1, rec2, True)
         syna21 = LogSTDPRecurrentSynapse(rec2, rec1, True)
         syna22 = LogSTDPRecurrentSynapse(rec2, rec2, 'i!=j')
-    stim = RelativeJitterGroup(10, tmax, freq, jitter)
+    stim = RelativeJitterGroup(STIM_N, tmax, freq, jitter)
     stim_rec1 = NormalInputSynapses(stim, rec1)
 
     spkmon_rec1 = SpikeMonitor(rec1)
