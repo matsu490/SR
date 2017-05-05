@@ -12,6 +12,19 @@ from os.path import join as os_path_join
 from brian2 import SpikeGeneratorGroup, NeuronGroup, Synapses
 from brian2.units import *
 import numpy as np
+import pickle as pkl
+
+
+def pickle(obj, directory, file_name):
+    os_makedirs(directory)
+    path = os_path_join(directory, file_name)
+    with open(path, 'wb') as f:
+        pkl.dump(obj, f)
+
+
+def unpickle(path):
+    with open(path, 'rb') as f:
+        return pkl.load(f)
 
 
 def save_data(dic, save_data_dir, mode='npy'):
