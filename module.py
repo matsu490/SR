@@ -318,20 +318,48 @@ class AddSTDPRecurrentSynapse(Synapses):
             '''
 
 
-class MultiSTDPRecurrentSynapse(AddSTDPRecurrentSynapse):
-    def __init__(self, source, target):
-        super(MultiSTDPRecurrentSynapse, self).__init__(source, target)
+class MultiSTDPRecurrentSynapse(Synapses):
+    def __init__(
+            self, source, target, connect,
+            tau_rec = 5.0 * ms,
+            tau_LTP = 17.0 * ms,
+            tau_LTD = 34.0 * ms,
+            A_LTP = 1.0,
+            A_LTD = -1.65,
+            eta = 0.05,
+            sigma = 0.6,
+            w0 = 0.25,
+            w_ini = 0.2
+        ):
+        self._initEquations()
+        super(MultiSTDPRecurrentSynapse, self).__init__(
+            source, target, method='rk4',
+            model=self.model_eqs,
+            on_pre=self.pre_eqs,
+            on_post=self.post_eqs)
+        self.connect(connect)
+        self.tau_rec = tau_rec
+        self.tau_LTP = tau_LTP
+        self.tau_LTD = tau_LTD
+        self.A_LTP = A_LTP
+        self.A_LTD = A_LTD
+        self.eta = eta
+        self.sigma = sigma
+        self.w0 = w0
+        self.w = w_ini
+        self.pre.order = 1
+        self.post.order = -1
 
     def _initEquations(self):
         self.model_eqs = '''
-            tau_rec = 5.0 * ms : second
-            tau_LTP = 17.0 * ms : second
-            tau_LTD = 34.0 * ms : second
-            A_LTP = 1.0 : 1
-            A_LTD = -1.65 : 1
-            eta = 0.10 : 1
-            sigma = 0.6 : 1
-            w0 = 0.25 : 1
+            tau_rec : second
+            tau_LTP : second
+            tau_LTD : second
+            A_LTP : 1
+            A_LTD : 1
+            eta : 1
+            sigma : 1
+            w0 : 1
             w : 1
             wtot_post = w : 1 (summed)
             g_rec_post = w * s_rec : 1 (summed)
