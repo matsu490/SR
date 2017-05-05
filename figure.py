@@ -27,7 +27,7 @@ class SynapseMatrix(FigureModel):
         super(SynapseMatrix, self).__init__()
         dirs = [
             os_getcwdu(), 'ResultData', profile_name,
-            'trial{}'.format(trial),
+            '{}periods'.format(period), 'trial{}'.format(trial),
             'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
             'jitter={}'.format(jitter), 'a={}'.format(a),
             'freq={}'.format(freq)]
