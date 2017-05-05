@@ -72,6 +72,7 @@ def simulation_loop(trial, jitter, FLUC, freq):
     rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
     rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
     if STDP == 'add':
+        # syna12 means synapses from group 1 to group 2
         syna11 = AddSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
         syna12 = AddSTDPRecurrentSynapse(rec1, rec2, True)
         syna21 = AddSTDPRecurrentSynapse(rec2, rec1, True)
@@ -105,13 +106,13 @@ def simulation_loop(trial, jitter, FLUC, freq):
     meanw_rec1 = (wtotmon_rec1.wtot.sum(0)) / (REC1_N**2 - REC1_N)
     meanw_rec2 = (wtotmon_rec2.wtot.sum(0)) / (REC2_N**2 - REC2_N)
     synamat11 = np.zeros((REC1_N, REC1_N))
-    synamat12 = np.zeros((REC1_N, REC2_N))
-    synamat21 = np.zeros((REC2_N, REC1_N))
+    synamat12 = np.zeros((REC2_N, REC1_N))
+    synamat21 = np.zeros((REC1_N, REC2_N))
     synamat22 = np.zeros((REC2_N, REC2_N))
-    synamat11[syna11.i[:], syna11.j[:]] = syna11.w[:]
-    synamat12[syna12.i[:], syna12.j[:]] = syna12.w[:]
-    synamat21[syna21.i[:], syna21.j[:]] = syna21.w[:]
-    synamat22[syna22.i[:], syna22.j[:]] = syna22.w[:]
+    synamat11[syna11.j[:], syna11.i[:]] = syna11.w[:]
+    synamat12[syna12.j[:], syna12.i[:]] = syna12.w[:]
+    synamat21[syna21.j[:], syna21.i[:]] = syna21.w[:]
+    synamat22[syna22.j[:], syna22.i[:]] = syna22.w[:]
 
     variables = {
         'meanw_rec1': meanw_rec1,
