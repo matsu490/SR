@@ -27,10 +27,21 @@ class Main(object):
         data_dir_path = '{0}Data/gmax_rec={1}mS/FLUC={2}/jitter={3}ms/a={4}uA/freq={5}Hz/'.format(profile_root, gmax_rec, FLUC, jitter, a, freq)
         rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
         rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
-        syna11 = AddSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
-        syna12 = AddSTDPRecurrentSynapse(rec1, rec2, True)
-        syna21 = AddSTDPRecurrentSynapse(rec2, rec1, True)
-        syna22 = AddSTDPRecurrentSynapse(rec2, rec2, 'i!=j')
+        if STDP == 'add':
+            syna11 = AddSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
+            syna12 = AddSTDPRecurrentSynapse(rec1, rec2, True)
+            syna21 = AddSTDPRecurrentSynapse(rec2, rec1, True)
+            syna22 = AddSTDPRecurrentSynapse(rec2, rec2, 'i!=j')
+        elif STDP == 'mlt':
+            syna11 = MultiSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
+            syna12 = MultiSTDPRecurrentSynapse(rec1, rec2, True)
+            syna21 = MultiSTDPRecurrentSynapse(rec2, rec1, True)
+            syna22 = MultiSTDPRecurrentSynapse(rec2, rec2, 'i!=j')
+        elif stdp == 'log':
+            syna11 = LogSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
+            syna12 = LogSTDPRecurrentSynapse(rec1, rec2, True)
+            syna21 = LogSTDPRecurrentSynapse(rec2, rec1, True)
+            syna22 = LogSTDPRecurrentSynapse(rec2, rec2, 'i!=j')
         stim = RelativeJitterGroup(10, tmax, freq, jitter)
         stim_rec1 = NormalInputSynapses(stim, rec1)
 
