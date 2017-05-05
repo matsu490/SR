@@ -32,7 +32,7 @@ class Main(object):
 
     def first(self):
         parser = argparse.ArgumentParser(description='Network simulation')
-        parser.add_argument('--multi', '-m', type=int, default=mp.cpu_count(),
+        parser.add_argument('--multi', '-m', type=int, default=0,
             help='Number of process that run at the same time: max={}'.format(mp.cpu_count()))
         args = parser.parse_args()
         print('')
