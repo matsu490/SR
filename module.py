@@ -31,7 +31,7 @@ def save_data(dic, save_data_dir, mode='npy'):
         np.savetxt(os_path_join(save_data_dir, 'data_list.csv'), keys, fmt='%s')
 
 
-def getSynamat(N, Synapses_w):
+def get_synamat(N, Synapses_w):
     synamat = np.zeros((N, N))
     for i in np.arange(N):
         for j in np.arange(N):
@@ -230,7 +230,6 @@ class AckerNeuronGroup(NeuronGroup):
             mhs_inf = 1.0 / (1.0 + exp((V / mV + 71.3) / 7.9)) : 1
             tau_mhs = 5.6 / (exp((V / mV - 1.7) / 14.0) + exp(-(V / mV + 260.0) / 43.0) + 1.0) * ms : second
             '''
-        # neuron_eqs = '\n'.join(shared_params + params + eqs)
         neuron_eqs = shared_params + params + eqs
         super(AckerNeuronGroup, self).__init__(
             N, neuron_eqs, threshold='V>Vth', refractory='V>Vth', method='rk4')
