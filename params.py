@@ -15,12 +15,12 @@ STDP = 'add'
 REC1_N = 50
 REC2_N = 50
 
-profile_name = 'test2'
+profile_name = 'test'
 
 a = 2.0 * uA
 gmax_rec = 0.010 * msiemens
-
 period = 5
-jitter = -2 * ms
-FLUC = 100000 * (uA**2 / ms)
-freq = 50 * Hz
+
+jitters = [-2] * ms
+FLUCs = range(0, 400000, 100000) * (uA**2 / ms)
+freqs = range(10, 50, 10) * Hz

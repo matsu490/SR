@@ -21,7 +21,13 @@ class Main(object):
     def __init__(self):
         pass
 
-    def run(self):
+    def run(self, jitters, FLUCs, freqs):
+        for jitter in jitters:
+            for FLUC in FLUCs:
+                for freq in freqs:
+                    self._loop(jitter, FLUC, freq)
+
+    def _loop(self, jitter, FLUC, freq):
         tmax = period * 1.0 / freq
         rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
         rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
@@ -86,4 +92,4 @@ class Main(object):
 
 if __name__ == '__main__':
     main = Main()
-    main.run()
+    main.run(jitters, FLUCs, freqs)
