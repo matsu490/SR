@@ -31,22 +31,6 @@ def save_data(dic, save_data_dir, mode='npy'):
         np.savetxt(os_path_join(save_data_dir, 'data_list.csv'), keys, fmt='%s')
 
 
-def digDirectory(path):
-    import os
-    dirs = path.split('/')
-    if dirs[0] == '.':
-        check_path = '.'
-        for dirc in dirs[1:]:
-            check_path += '/' + dirc
-            if not os.path.exists(check_path):
-                os.mkdir(check_path)
-            else:
-                pass
-    else:
-        print('It is not relative path.')
-    del os
-
-
 def getSynamat(N, Synapses_w):
     synamat = np.zeros((N, N))
     for i in np.arange(N):
