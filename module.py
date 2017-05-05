@@ -7,7 +7,6 @@
 #
 # Copyright (C) 2017 Taishi Matsumura
 #
-from os import makedirs as os_makedirs
 from os.path import join as os_path_join
 from brian2 import SpikeGeneratorGroup, NeuronGroup, Synapses
 from brian2.units import *
@@ -16,7 +15,6 @@ import pickle as pkl
 
 
 def pickle(obj, directory, file_name):
-    os_makedirs(directory)
     path = os_path_join(directory, file_name)
     with open(path, 'wb') as f:
         pkl.dump(obj, f)
@@ -28,7 +26,6 @@ def unpickle(path):
 
 
 def save_data(dic, save_data_dir, mode='npy'):
-    os_makedirs(save_data_dir)
     keys = []
     if mode in ('npy', 'numpy'):
         for key, val in dic.items():
