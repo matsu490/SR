@@ -28,20 +28,24 @@ class RasterFigure(FigureModel):
             'jitter={}'.format(jitter), 'a={}'.format(a),
             'freq={}'.format(freq)]
         data_dir_path = os_path_join(*dirs)
-        raster_t = np.load(os_path_join(data_dir_path, 'raster_rec1_t.npy'))
-        raster_i = np.load(os_path_join(data_dir_path, 'raster_rec1_i.npy'))
-        self.ax = self.fig.add_subplot(111)
-        self.ax.plot(raster_t, raster_i, 'k|', ms=10)
-        self.ax.set_xlabel('Time [msec]')
-        self.ax.set_ylabel('Neuron')
+        raster_t1 = np.load(os_path_join(data_dir_path, 'raster_rec1_t.npy'))
+        raster_i1 = np.load(os_path_join(data_dir_path, 'raster_rec1_i.npy'))
+        raster_t2 = np.load(os_path_join(data_dir_path, 'raster_rec2_t.npy'))
+        raster_i2 = np.load(os_path_join(data_dir_path, 'raster_rec2_i.npy'))
+        self.ax1 = self.fig.add_subplot(211)
+        self.ax2 = self.fig.add_subplot(212)
+        self.ax1.plot(raster_t1, raster_i1, 'k|', ms=10)
+        self.ax2.plot(raster_t2, raster_i2, 'k|', ms=10)
+        self.ax2.set_xlabel('Time [msec]')
+        # self.ax1.set_ylabel('Neuron')
         self.fig.tight_layout()
 
 if __name__ == '__main__':
     profile_name = 'synamat'
-    period = 100
+    period = 500
     trial = 0
     gmax_rec = 0.010 * msiemens
-    FLUC = 100000 * (uA ** 2 / ms)
+    FLUC = 1000 * (uA ** 2 / ms)
     a = 2.0 * uA
     freq = 40 * Hz
     jitter = -2 * ms
