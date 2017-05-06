@@ -69,8 +69,8 @@ class Main(object):
 
 def simulation_loop(trial, jitter, FLUC, freq):
     tmax = period * 1.0 / freq
-    rec1 = AckerNeuronGroup(REC1_N, mode='Ih')
-    rec2 = AckerNeuronGroup(REC2_N, mode='Ih')
+    rec1 = AckerNeuronGroup(REC1_N, mode=MODE)
+    rec2 = AckerNeuronGroup(REC2_N, mode=MODE)
     if STDP == 'add':
         # syna12 means synapses from group 1 to group 2
         syna11 = AddSTDPRecurrentSynapse(rec1, rec1, 'i!=j')
