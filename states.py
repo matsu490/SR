@@ -46,11 +46,11 @@ class StatesFigure(FigureModel):
         self.fig.tight_layout()
 
 if __name__ == '__main__':
-    profile_name = 'synamat'
+    profile_name = 'test'
     period = 500
     trial = 0
     gmax_rec = 0.010 * msiemens
-    FLUC = 1000 * (uA ** 2 / ms)
+    FLUC = 0 * (uA ** 2 / ms)
     a = 2.0 * uA
     freq = 40 * Hz
     jitter = -2 * ms
