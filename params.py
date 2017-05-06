@@ -13,16 +13,17 @@ DT = 0.01 * ms
 MODE = 'Ih'
 STDP = 'add'
 STIM_N = 20
-REC1_N = 20
-REC2_N = 50
+REC1_N = 100
+REC2_N = 100
 
 profile_name = 'synamat'
 
 a = 2.0 * uA
 gmax_rec = 0.010 * msiemens
-period = 100
+period = 500
 
 trials = range(1)
 jitters = [-2] * ms
-FLUCs = range(400000, 500000, 100000) * (uA**2 / ms)
+FLUCs = range(100000, 200000, 100000) * (uA**2 / ms)
+FLUCs = [1000] * (uA**2 / ms)
 freqs = range(40, 50, 10) * Hz
