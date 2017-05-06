@@ -202,6 +202,8 @@ class AckerNeuronGroup(NeuronGroup):
                 gKs = 0.0 * msiemens : siemens
             '''
         eqs = '''
+            Idc = -0.0 * uA : amp
+
             Iwave = a * sin(2 * pi * freq * t) : amp
 
             Inz = (2.0 * FLUC * DT) ** 0.5 * randn() : amp (constant over dt)
@@ -215,7 +217,7 @@ class AckerNeuronGroup(NeuronGroup):
             Irec = -gmax_rec * g_rec * (V - Vrec) : amp
 
             wtot : 1
-            dV/dt = (Iapp + Iwave + Inz + Istim + Irec
+            dV/dt = (Iapp + Idc + Iwave + Inz + Istim + Irec
                 -(gNa * m ** 3 * h + gNap * mNap) * (V - VNa)
                 -(gK * n ** 4 + gKs * mKs) * (V - VK)
                 -gh * (0.65 * mhf + 0.35 * mhs) * (V - Vh)
