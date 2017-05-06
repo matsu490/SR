@@ -94,6 +94,7 @@ def simulation_loop(trial, jitter, FLUC, freq):
     spkmon_rec2 = SpikeMonitor(rec2)
     ratemon_rec1 = PopulationRateMonitor(rec1)
     ratemon_rec2 = PopulationRateMonitor(rec2)
+    groupmon_rec1 = StateMonitor(rec1, ('V', 'Istim', 'Irec', 'Inz'), record=[0, 1])
     synamon_rec11 = StateMonitor(syna11, 'w', record=[0, 1])
     synamon_rec12 = StateMonitor(syna12, 'w', record=[0, 1])
     synamon_rec21 = StateMonitor(syna21, 'w', record=[0, 1])
@@ -115,6 +116,11 @@ def simulation_loop(trial, jitter, FLUC, freq):
     synamat22[syna22.j[:], syna22.i[:]] = syna22.w[:]
 
     variables = {
+        't': groupmon_rec1.t,
+        'V': groupmon_rec1.V,
+        'Istim': groupmon_rec1.Istim,
+        'Irec': groupmon_rec1.Irec,
+        'Inz': groupmon_rec1.Inz,
         'meanw_rec1': meanw_rec1,
         'meanw_rec2': meanw_rec2,
         'ws11': syna11.w,
