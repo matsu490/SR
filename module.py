@@ -156,7 +156,7 @@ class NormalInputSynapses(Synapses):
 
 
 class AckerNeuronGroup(NeuronGroup):
-    def __init__(self, N, mode='Ih'):
+    def __init__(self, N, freq, mode='Ih'):
         shared_params = '''
             Vth = 20.0 * mV : volt
             VNa = 55.0 * mV : volt
@@ -204,7 +204,8 @@ class AckerNeuronGroup(NeuronGroup):
         eqs = '''
             Idc = -0.0 * uA : amp
 
-            Iwave = a * sin(2 * pi * freq * t) : amp
+            f : Hz
+            Iwave = a * sin(2 * pi * f * t) : amp
 
             Inz = (2.0 * FLUC * DT) ** 0.5 * randn() : amp (constant over dt)
 
@@ -262,6 +263,7 @@ class AckerNeuronGroup(NeuronGroup):
         self.mKs = 0.0
         self.mhf = 0.0
         self.mhs = 0.0
+        self.f = freq
 
 
 class AddSTDPRecurrentSynapse(Synapses):
