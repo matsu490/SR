@@ -36,6 +36,7 @@ class SynapseMatrix(FigureModel):
         self.synamat12 = np.load(os_path_join(data_dir_path, 'synamat12.npy'))
         self.synamat21 = np.load(os_path_join(data_dir_path, 'synamat21.npy'))
         self.synamat22 = np.load(os_path_join(data_dir_path, 'synamat22.npy'))
+        self.synamat = np.hstack((np.vstack((self.synamat11, self.synamat12)), np.vstack((self.synamat21, self.synamat22))))
         self.group_ns = group_ns
         self.group = len(group_ns)
     
@@ -70,6 +71,9 @@ class SynapseMatrix(FigureModel):
         return m
 
     def plot_synamat(self):
+        self.ax = self.fig.add_subplot(111)
+        self.ax.imshow(self.synamat, interpolation='none', vmin=0, vmax=1)
+        '''
         self.ax1 = self.fig.add_subplot(221)
         self.ax2 = self.fig.add_subplot(222)
         self.ax3 = self.fig.add_subplot(223)
@@ -78,7 +82,6 @@ class SynapseMatrix(FigureModel):
         self.ax2.imshow(self.synamat21, interpolation='none', vmin=0, vmax=1)
         self.ax3.imshow(self.synamat12, interpolation='none', vmin=0, vmax=1)
         self.ax4.imshow(self.synamat22, interpolation='none', vmin=0, vmax=1)
-        '''
         divider = make_axes_locatable(self.ax)
         cax = divider.append_axes('right', size='5%', pad=0.1)
         cb = self.fig.colorbar(im, cax=cax)
