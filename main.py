@@ -153,7 +153,7 @@ def simulation_loop(trial, jitter, FLUC, freq):
         'FLUC': FLUC,
         'freq': freq}
     dirs = [
-        os_getcwdu(), 'ResultData', profile_name,
+        os_getcwdu(), 'ResultData', profile_name, 'Data',
         '{}periods'.format(period), 'trial{}'.format(trial),
         'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
         'jitter={}'.format(jitter), 'a={}'.format(a),
