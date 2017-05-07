@@ -23,10 +23,10 @@ class SynapseMatrix(FigureModel):
     group = 2
     group_ns = (20, 80)
     '''
-    def __init__(self, profile_name, trial, gmax_rec, FLUC, a, freq, jitter, group_ns=(20, 80)):
+    def __init__(self, profile_name, period, trial, gmax_rec, FLUC, a, freq, jitter, group_ns=(20, 80)):
         super(SynapseMatrix, self).__init__()
         dirs = [
-            os_getcwdu(), 'ResultData', profile_name,
+            os_getcwdu(), 'ResultData', profile_name, 'Data',
             '{}periods'.format(period), 'trial{}'.format(trial),
             'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
             'jitter={}'.format(jitter), 'a={}'.format(a),

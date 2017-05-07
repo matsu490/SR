@@ -22,7 +22,7 @@ class RasterFigure(FigureModel):
 
     def plot(self, profile_name, period, trial, gmax_rec, FLUC, a, freq, jitter):
         dirs = [
-            os_getcwdu(), 'ResultData', profile_name,
+            os_getcwdu(), 'ResultData', profile_name, 'Data',
             '{}periods'.format(period), 'trial{}'.format(trial),
             'gmax_rec={}'.format(gmax_rec), 'FLUC={}'.format(FLUC),
             'jitter={}'.format(jitter), 'a={}'.format(a),
