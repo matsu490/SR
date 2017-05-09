@@ -50,17 +50,6 @@ def save_data(dic, save_data_dir, mode='npy'):
         np.savetxt(os_path_join(save_data_dir, 'data_list.csv'), keys, fmt='%s')
 
 
-def get_synamat(N, Synapses_w):
-    synamat = np.zeros((N, N))
-    for i in np.arange(N):
-        for j in np.arange(N):
-            if i == j:
-                pass
-            else:
-                synamat[i, j] = Synapses_w[j, i]
-    return synamat
-
-
 class FixedJitterGroup(SpikeGeneratorGroup):
     def __init__(self, N, tmax, freq, jitter):
         indices = np.arange(0, N)
