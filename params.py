@@ -16,7 +16,7 @@ STIM_N = 20
 REC1_N = 100
 REC2_N = 100
 
-profile_name = 'test'
+profile_name = 'diff'
 
 a = 2.0 * uA
 gmax_rec = 0.010 * msiemens
@@ -27,3 +27,4 @@ jitters = [-2] * ms
 FLUCs = range(100000, 200000, 100000) * (uA**2 / ms)
 FLUCs = [0, 100000, 400000] * (uA**2 / ms)
 freqs = range(40, 60, 10) * Hz
+freqs = [50] * Hz
