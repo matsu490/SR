@@ -170,7 +170,7 @@ class AckerNeuronGroup(NeuronGroup):
             params = '''
                 gNa = 52.0 * msiemens : siemens
                 V_ha_Ks = 0.0 * mV : volt
-                Iapp = -3.5 * uA : amp
+                Iapp = -2.25 * uA : amp
                 VL = -65.0 * mV : volt
                 gNap = 0.5 * msiemens : siemens
                 gh = 1.5 * msiemens : siemens
@@ -182,7 +182,7 @@ class AckerNeuronGroup(NeuronGroup):
             params = '''
                 gNa = 52.0 * msiemens : siemens
                 V_ha_Ks = -35.0 * mV : volt
-                Iapp = -1.791 * uA : amp
+                Iapp = 1.791 * uA : amp
                 VL = -54.0 * mV : volt
                 gNap = 0.21 * msiemens : siemens
                 gh = 0.0 * msiemens : siemens
@@ -194,7 +194,7 @@ class AckerNeuronGroup(NeuronGroup):
             params = '''
                 gNa = 0.0 * msiemens : siemens
                 V_ha_Ks = 0.0 * mV : volt
-                Iapp = 0 * uA : amp
+                Iapp = -2.25 * uA : amp
                 VL = -65.0 * mV : volt
                 gNap = 0.5 * msiemens : siemens
                 gh = 1.5 * msiemens : siemens
