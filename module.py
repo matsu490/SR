@@ -50,17 +50,6 @@ def save_data(dic, save_data_dir, mode='npy'):
         np.savetxt(os_path_join(save_data_dir, 'data_list.csv'), keys, fmt='%s')
 
 
-def get_synamat(N, Synapses_w):
-    synamat = np.zeros((N, N))
-    for i in np.arange(N):
-        for j in np.arange(N):
-            if i == j:
-                pass
-            else:
-                synamat[i, j] = Synapses_w[j, i]
-    return synamat
-
-
 class FixedJitterGroup(SpikeGeneratorGroup):
     def __init__(self, N, tmax, freq, jitter):
         indices = np.arange(0, N)
@@ -156,7 +145,7 @@ class NormalInputSynapses(Synapses):
 
 
 class AckerNeuronGroup(NeuronGroup):
-    def __init__(self, N, mode='Ih'):
+    def __init__(self, N, freq, mode='Ih'):
         shared_params = '''
             Vth = 20.0 * mV : volt
             VNa = 55.0 * mV : volt
@@ -216,7 +205,8 @@ class AckerNeuronGroup(NeuronGroup):
         eqs = '''
             Idc = -0.0 * uA : amp
 
-            Iwave = a * sin(2 * pi * freq * t) : amp
+            f : Hz
+            Iwave = a * sin(2 * pi * f * t) : amp
 
             Inz = (2.0 * FLUC * DT) ** 0.5 * randn() : amp (constant over dt)
 
@@ -274,6 +264,7 @@ class AckerNeuronGroup(NeuronGroup):
         self.mKs = 0.0
         self.mhf = 0.0
         self.mhs = 0.0
+        self.f = freq
 
 
 class AddSTDPRecurrentSynapse(Synapses):
