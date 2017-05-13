@@ -165,7 +165,19 @@ class AckerNeuronGroup(NeuronGroup):
             gK = 11.0 * msiemens : siemens
             Cm = 1.5 * uF : farad
         '''
-        if mode == 'Ih':
+        if mode == 'none':
+            # without Ih, without IK model
+            params = '''
+                gNa = 52.0 * msiemens : siemens
+                V_ha_Ks = 0.0 * mV : volt
+                Iapp = -2.25 * uA : amp
+                VL = -65.0 * mV : volt
+                gNap = 0.5 * msiemens : siemens
+                gh = 0.0 * msiemens : siemens
+                gL = 0.5 * msiemens : siemens
+                gKs = 0.0 * msiemens : siemens
+            '''
+        elif mode == 'Ih':
             # with Ih, without IK model
             params = '''
                 gNa = 52.0 * msiemens : siemens
